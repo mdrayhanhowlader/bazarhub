@@ -4599,3 +4599,147 @@ Responsive
   .bh-page-hero__title { font-size: 20px; }
   .bh-contact-form { padding: 22px 16px; }
 }
+
+/* ============================================
+   REUSABLE SECTION HEADER — .bh-section-head
+   ============================================ */
+.bh-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+}
+.bh-section-head__left { display: flex; align-items: center; gap: 14px; }
+.bh-section-head__bar {
+  display: block; width: 5px; height: 48px; border-radius: 4px; flex-shrink: 0;
+  background: linear-gradient(180deg,#f44336,#ff6f00);
+}
+.bh-section-head__sup {
+  display: block; font-size: 11px; font-weight: 800;
+  color: #f44336; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 3px;
+}
+.bh-section-head__title {
+  font-family: Poppins, sans-serif; font-size: 22px;
+  font-weight: 800; color: #1a1a1a; margin: 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.bh-section-head__all {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 20px; border-radius: 50px;
+  border: 1.5px solid #43a047; color: #43a047;
+  font-size: 13px; font-weight: 700; text-decoration: none;
+  transition: all .2s; white-space: nowrap;
+}
+.bh-section-head__all:hover { background: #43a047; color: #fff; }
+
+/* ============================================
+   OFFER BANNERS — Modern Promo Cards
+   ============================================ */
+.bh-offer-banners { padding: 40px 0 48px; background: #f4f7f4; }
+
+.bh-ob-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* Card */
+.bh-ob-card {
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: 20px; padding: 28px 24px;
+  min-height: 160px; position: relative; overflow: hidden;
+  text-decoration: none;
+  transition: transform .3s, box-shadow .3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12);
+}
+.bh-ob-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.22);
+}
+
+/* Background image (if set in Customizer) */
+.bh-ob-card__bg-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; z-index: 0;
+  opacity: .18;
+}
+
+/* Decorative circles */
+.bh-ob-card__circle {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,.12); pointer-events: none;
+}
+.bh-ob-card__circle--1 {
+  width: 200px; height: 200px;
+  top: -60px; right: -60px;
+}
+.bh-ob-card__circle--2 {
+  width: 120px; height: 120px;
+  bottom: -40px; right: 80px;
+  background: rgba(255,255,255,.08);
+}
+
+/* Left: text content */
+.bh-ob-card__body {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; gap: 6px;
+  max-width: 60%;
+}
+.bh-ob-card__badge {
+  display: inline-block;
+  background: rgba(255,255,255,.25);
+  color: #fff; font-size: 10px; font-weight: 800;
+  padding: 3px 10px; border-radius: 50px;
+  text-transform: uppercase; letter-spacing: .8px;
+  width: fit-content;
+}
+.bh-ob-card__title {
+  font-family: Poppins, sans-serif;
+  font-size: 20px; font-weight: 800;
+  color: #fff; margin: 0; line-height: 1.2;
+}
+.bh-ob-card__sub {
+  font-size: 12px; color: rgba(255,255,255,.8);
+  margin: 0;
+}
+.bh-ob-card__cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.2);
+  color: #fff; font-size: 12px; font-weight: 700;
+  padding: 7px 14px; border-radius: 50px;
+  border: 1.5px solid rgba(255,255,255,.4);
+  transition: background .2s;
+  width: fit-content; margin-top: 4px;
+}
+.bh-ob-card:hover .bh-ob-card__cta { background: rgba(255,255,255,.35); }
+
+/* Right: Discount + icon */
+.bh-ob-card__right {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; flex-shrink: 0;
+}
+.bh-ob-card__discount {
+  font-family: Poppins, sans-serif;
+  font-size: 30px; font-weight: 900;
+  color: #fff; line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.bh-ob-card__icon {
+  font-size: 36px;
+  color: rgba(255,255,255,.35);
+}
+
+/* Responsive */
+@media(max-width:900px) {
+  .bh-ob-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .bh-ob-card { padding: 22px 18px; min-height: 140px; }
+  .bh-ob-card__title { font-size: 17px; }
+  .bh-ob-card__discount { font-size: 24px; }
+  .bh-ob-card__icon { font-size: 28px; }
+}
+@media(max-width:600px) {
+  .bh-ob-grid { grid-template-columns: 1fr; gap: 12px; }
+  .bh-ob-card { min-height: 120px; padding: 20px 18px; }
+  .bh-ob-card__body { max-width: 70%; }
+  .bh-ob-card__title { font-size: 16px; }
+  .bh-ob-card__discount { font-size: 22px; }
+}

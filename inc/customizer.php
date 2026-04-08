@@ -37,15 +37,28 @@ function bazaarhub_customizer( $wp_customize ) {
     }
 
     // ── Offer Banners ────────────────────────────────────
-    $wp_customize->add_section('bh_offers', ['title'=>'Offer / Ad Banners','priority'=>33]);
-    for ( $i = 1; $i <= 4; $i++ ) {
-        $wp_customize->add_setting("offer_image_$i",  ['default'=>'','sanitize_callback'=>'esc_url_raw']);
-        $wp_customize->add_setting("offer_url_$i",    ['default'=>'/shop','sanitize_callback'=>'esc_url_raw']);
-        $wp_customize->add_setting("offer_label_$i",  ['default'=>"Special Offer $i",'sanitize_callback'=>'sanitize_text_field']);
-        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize,"offer_image_$i",['label'=>"Ad Banner $i Image",'section'=>'bh_offers']));
-        $wp_customize->add_control("offer_url_$i",    ['label'=>"Ad Banner $i Link",'section'=>'bh_offers','type'=>'url']);
-        $wp_customize->add_control("offer_label_$i",  ['label'=>"Ad Banner $i Label",'section'=>'bh_offers','type'=>'text']);
-    }
+    $wp_customize->add_section('bh_offers', ['title'=>'Special Deal Banners','priority'=>33]);
+    $offer_defaults = [
+        1 => ['label'=>'Electronics',   'badge'=>'Flash Sale', 'discount'=>'40% OFF', 'sub'=>'Limited time offer'],
+        2 => ['label'=>'Fashion & Style','badge'=>'Hot Deal',   'discount'=>'30% OFF', 'sub'=>'New collection in'],
+        3 => ['label'=>'Home & Kitchen', 'badge'=>'Best Price', 'discount'=>'25% OFF', 'sub'=>'Everyday essentials'],
+        4 => ['label'=>'Gadgets & More', 'badge'=>'Mega Offer', 'discount'=>'35% OFF', 'sub'=>'Top brands on sale'],
+    ];
+    for ( $i = 1; $i <= 4; $i++ ) :
+        $d = $offer_defaults[$i];
+        $wp_customize->add_setting("offer_image_$i",    ['default'=>'',            'sanitize_callback'=>'esc_url_raw']);
+        $wp_customize->add_setting("offer_url_$i",      ['default'=>'/shop',       'sanitize_callback'=>'esc_url_raw']);
+        $wp_customize->add_setting("offer_label_$i",    ['default'=>$d['label'],   'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_setting("offer_badge_$i",    ['default'=>$d['badge'],   'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_setting("offer_discount_$i", ['default'=>$d['discount'],'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_setting("offer_sub_$i",      ['default'=>$d['sub'],     'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize,"offer_image_$i",['label'=>"Banner $i — Background Image (optional)",'section'=>'bh_offers']));
+        $wp_customize->add_control("offer_url_$i",      ['label'=>"Banner $i — Link URL",        'section'=>'bh_offers','type'=>'url']);
+        $wp_customize->add_control("offer_label_$i",    ['label'=>"Banner $i — Title",            'section'=>'bh_offers','type'=>'text']);
+        $wp_customize->add_control("offer_badge_$i",    ['label'=>"Banner $i — Badge (e.g. Flash Sale)",'section'=>'bh_offers','type'=>'text']);
+        $wp_customize->add_control("offer_discount_$i", ['label'=>"Banner $i — Discount (e.g. 40% OFF)",'section'=>'bh_offers','type'=>'text']);
+        $wp_customize->add_control("offer_sub_$i",      ['label'=>"Banner $i — Subtitle",         'section'=>'bh_offers','type'=>'text']);
+    endfor;
 
     // ── Best Deals Section ───────────────────────────────
     $wp_customize->add_section('bh_deals', ['title'=>'Best Deals Section','priority'=>34]);
