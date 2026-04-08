@@ -56,37 +56,108 @@ get_header('shop');
           </ul>
         </div>
 
-        <!-- Price Filter -->
-        <?php if(is_active_sidebar('shop-sidebar')): ?>
+        <!-- Price Filter (WooCommerce widget) -->
+        <?php
+        // Only output WC price filter widget — suppress any other widgets in this sidebar
+        $wc_price_widget = false;
+        if ( is_active_sidebar('shop-sidebar') ) {
+            global $wp_registered_widgets, $sidebars_widgets;
+            $sw = $sidebars_widgets['shop-sidebar'] ?? [];
+            foreach ( $sw as $wid ) {
+                if ( isset($wp_registered_widgets[$wid]) && strpos($wid,'woocommerce_price_filter') !== false ) {
+                    $wc_price_widget = true; break;
+                }
+                if ( isset($wp_registered_widgets[$wid]['classname']) && strpos($wp_registered_widgets[$wid]['classname'],'woocommerce_price_filter') !== false ) {
+                    $wc_price_widget = true; break;
+                }
+            }
+        }
+        if ( $wc_price_widget ): ?>
+        <div class="bh-sidebar-widget bh-sidebar-price-filter">
+          <h3 class="bh-sidebar-widget__title"><i class="fas fa-sliders-h"></i> <?php _e('Filter by Price','bazaarhub'); ?></h3>
+          <?php
+          // Output only price filter widget
+          global $wp_registered_widgets, $sidebars_widgets;
+          $sw = $sidebars_widgets['shop-sidebar'] ?? [];
+          foreach ( $sw as $wid ) {
+              $cls = $wp_registered_widgets[$wid]['classname'] ?? '';
+              if ( strpos($cls,'woocommerce_price_filter') !== false || strpos($wid,'woocommerce_price_filter') !== false ) {
+                  $callback = $wp_registered_widgets[$wid]['callback'];
+                  $params    = $wp_registered_widgets[$wid]['params'][0] ?? [];
+                  $params['widget_id']   = $wid;
+                  $params['widget_name'] = $wp_registered_widgets[$wid]['name'];
+                  call_user_func($callback, [], $params);
+              }
+          }
+          ?>
+        </div>
+        <?php else: ?>
+        <!-- Price range quick links when no WC price filter plugin -->
         <div class="bh-sidebar-widget">
-          <h3 class="bh-sidebar-widget__title"><i class="fas fa-sliders-h"></i> Filter by Price</h3>
-          <?php dynamic_sidebar('shop-sidebar'); ?>
+          <h3 class="bh-sidebar-widget__title"><i class="fas fa-tag"></i> <?php _e('Price Range','bazaarhub'); ?></h3>
+          <ul class="bh-sidebar-sort-list">
+            <?php
+            $ranges = [
+                ['Under ৳100',   'max_price=100'],
+                ['৳100 – ৳500',  'min_price=100&max_price=500'],
+                ['৳500 – ৳1000', 'min_price=500&max_price=1000'],
+                ['৳1000+',       'min_price=1000'],
+            ];
+            foreach ($ranges as $r):
+              $url = get_permalink(wc_get_page_id('shop')) . '?' . $r[1];
+            ?>
+            <li><a href="<?php echo esc_url($url); ?>"><i class="fas fa-chevron-right" style="font-size:9px;color:#43a047"></i> <?php echo esc_html($r[0]); ?></a></li>
+            <?php endforeach; ?>
+          </ul>
         </div>
         <?php endif; ?>
 
         <!-- Sort By -->
         <div class="bh-sidebar-widget">
-          <h3 class="bh-sidebar-widget__title"><i class="fas fa-sort"></i> Sort By</h3>
+          <h3 class="bh-sidebar-widget__title"><i class="fas fa-sort"></i> <?php _e('Sort By','bazaarhub'); ?></h3>
           <ul class="bh-sidebar-sort-list">
             <?php
-            $current = isset($_GET['orderby']) ? $_GET['orderby'] : 'menu_order';
-            $sorts = ['menu_order'=>'Default','popularity'=>'Popularity','rating'=>'Average Rating','date'=>'Latest','price'=>'Price: Low to High','price-desc'=>'Price: High to Low'];
+            $current = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'menu_order';
+            $sorts = [
+                'menu_order'  => __('Default','bazaarhub'),
+                'popularity'  => __('Most Popular','bazaarhub'),
+                'rating'      => __('Top Rated','bazaarhub'),
+                'date'        => __('Newest First','bazaarhub'),
+                'price'       => __('Price: Low → High','bazaarhub'),
+                'price-desc'  => __('Price: High → Low','bazaarhub'),
+            ];
             foreach($sorts as $val=>$label):
-              $url = add_query_arg('orderby',$val);
-              $active = ($current==$val)?'active':'';
+              $url    = add_query_arg('orderby', $val);
+              $active = ($current===$val) ? 'active' : '';
             ?>
-            <li><a href="<?php echo esc_url($url); ?>" class="<?php echo $active; ?>"><?php echo $label; ?></a></li>
+            <li><a href="<?php echo esc_url($url); ?>" class="<?php echo $active; ?>"><?php echo esc_html($label); ?></a></li>
             <?php endforeach; ?>
           </ul>
         </div>
 
-        <!-- On Sale -->
+        <!-- Offers -->
         <div class="bh-sidebar-widget">
-          <h3 class="bh-sidebar-widget__title"><i class="fas fa-percent"></i> Offers</h3>
+          <h3 class="bh-sidebar-widget__title"><i class="fas fa-percent"></i> <?php _e('Offers','bazaarhub'); ?></h3>
           <ul class="bh-sidebar-sort-list">
-            <li><a href="<?php echo add_query_arg('on_sale','1'); ?>" class="<?php echo isset($_GET['on_sale'])?'active':''; ?>"><i class="fas fa-fire" style="color:#e53935"></i> On Sale</a></li>
-            <li><a href="<?php echo add_query_arg('featured','1'); ?>" class="<?php echo isset($_GET['featured'])?'active':''; ?>"><i class="fas fa-star" style="color:#f57f17"></i> Featured</a></li>
+            <li><a href="<?php echo esc_url(add_query_arg('on_sale','1')); ?>" class="<?php echo isset($_GET['on_sale'])?'active':''; ?>">
+              <i class="fas fa-fire" style="color:#e53935"></i> <?php _e('On Sale','bazaarhub'); ?>
+            </a></li>
+            <li><a href="<?php echo esc_url(add_query_arg('featured','1')); ?>" class="<?php echo isset($_GET['featured'])?'active':''; ?>">
+              <i class="fas fa-star" style="color:#f57f17"></i> <?php _e('Featured','bazaarhub'); ?>
+            </a></li>
           </ul>
+        </div>
+
+        <!-- Sidebar Brand Card -->
+        <div class="bh-sidebar-brand-card">
+          <div class="bh-sidebar-brand-card__icon"><i class="fas fa-store"></i></div>
+          <h4><?php _e('Modhu Bazar Shop','bazaarhub'); ?></h4>
+          <p><?php _e('Trusted online store with 100% authentic products & fast delivery across Bangladesh.','bazaarhub'); ?></p>
+          <div class="bh-sidebar-brand-card__badges">
+            <span><i class="fas fa-shield-alt"></i> <?php _e('Secure Payment','bazaarhub'); ?></span>
+            <span><i class="fas fa-truck"></i> <?php _e('Fast Delivery','bazaarhub'); ?></span>
+            <span><i class="fas fa-undo"></i> <?php _e('Easy Returns','bazaarhub'); ?></span>
+          </div>
         </div>
 
       </aside>

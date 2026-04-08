@@ -707,6 +707,72 @@ table.variations td.value select:focus{border-color:#2e7d32}
 }
 .bh-sidebar-cat-list li.active a small { background: #c8e6c9; color: #2e7d32; }
 
+/* ── WooCommerce Price Filter widget inside sidebar ── */
+.bh-sidebar-price-filter .price_slider_wrapper { padding: 4px 0; }
+.bh-sidebar-price-filter .price_slider { margin: 10px 0 20px; height: 4px; border-radius: 4px; background: #e0e0e0; }
+.bh-sidebar-price-filter .price_slider .ui-slider-range { background: #43a047; border-radius: 4px; }
+.bh-sidebar-price-filter .price_slider .ui-slider-handle {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #43a047; border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(67,160,71,.4); top: -6px; cursor: pointer;
+}
+.bh-sidebar-price-filter .price_label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: #333; margin-bottom: 12px;
+}
+.bh-sidebar-price-filter .price_label .from,
+.bh-sidebar-price-filter .price_label .to { color: #2e7d32; }
+.bh-sidebar-price-filter .price_slider_amount {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.bh-sidebar-price-filter .price_slider_amount .button {
+  background: linear-gradient(135deg,#43a047,#66bb6a) !important;
+  color: #fff !important; border: none !important;
+  padding: 8px 18px !important; border-radius: 50px !important;
+  font-size: 12px !important; font-weight: 700 !important;
+  cursor: pointer !important; transition: all .2s !important;
+}
+.bh-sidebar-price-filter .price_slider_amount .button:hover {
+  background: linear-gradient(135deg,#2e7d32,#43a047) !important;
+}
+/* Hide unwanted widgets that may be in the sidebar (Search, Text, Image widgets) */
+.bh-sidebar-widget .widget_search,
+.bh-sidebar-widget .widget_text,
+.bh-sidebar-widget .widget_media_image { display: none !important; }
+
+/* ── Sidebar Brand Card ── */
+.bh-sidebar-brand-card {
+  margin: 0; padding: 20px;
+  background: linear-gradient(135deg,#1b5e20,#2e7d32 60%,#43a047);
+  border-radius: 0 0 14px 14px;
+  text-align: center;
+}
+.bh-sidebar-brand-card__icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+}
+.bh-sidebar-brand-card__icon i { font-size: 24px; color: #fff; }
+.bh-sidebar-brand-card h4 {
+  font-family: Poppins,sans-serif; font-size: 14px; font-weight: 800;
+  color: #fff; margin: 0 0 8px;
+}
+.bh-sidebar-brand-card p {
+  font-size: 11.5px; color: rgba(255,255,255,.8);
+  line-height: 1.6; margin: 0 0 14px;
+}
+.bh-sidebar-brand-card__badges {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.bh-sidebar-brand-card__badges span {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: rgba(255,255,255,.15); color: rgba(255,255,255,.9);
+  font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 50px;
+  border: 1px solid rgba(255,255,255,.2);
+}
+.bh-sidebar-brand-card__badges span i { font-size: 11px; }
+
 /* Sort list */
 .bh-sidebar-sort-list { list-style: none; padding: 0; margin: 0; }
 .bh-sidebar-sort-list li { margin-bottom: 3px; }
