@@ -1,0 +1,10 @@
+<?php get_header(); ?>
+<?php get_template_part('template-parts/home/hero-slider'); ?>
+<?php get_template_part('template-parts/home/category-showcase'); ?>
+<?php get_template_part('template-parts/home/offer-banners'); ?>
+<?php get_template_part('template-parts/home/best-deals'); ?>
+<?php get_template_part('template-parts/home/bestseller'); ?>
+<?php get_template_part('template-parts/home/featured-products'); ?>
+<?php get_template_part('template-parts/home/new-arrivals'); ?>
+<?php get_template_part('template-parts/home/promo-banners'); ?>
+<?php get_footer(); ?>
