@@ -1,6 +1,18 @@
-<?php defined('ABSPATH') || exit; get_header('shop'); ?>
+<?php
+defined('ABSPATH') || exit;
+// Prevent duplicate result count & ordering (they're already in woocommerce_before_shop_loop hook)
+remove_action('woocommerce_before_shop_loop','woocommerce_result_count',20);
+remove_action('woocommerce_before_shop_loop','woocommerce_catalog_ordering',30);
+get_header('shop');
+?>
 <div class="bh-shop-page">
   <div class="bh-container">
+
+    <!-- Mobile filter toggle -->
+    <button class="bh-mobile-filter-toggle" id="bh-mobile-filter-toggle">
+      <i class="fas fa-sliders-h"></i> <?php _e('Filter & Sort','bazaarhub'); ?>
+    </button>
+
     <div class="bh-shop-layout">
 
       <!-- Modern Sidebar -->
@@ -89,7 +101,6 @@
           <?php woocommerce_result_count(); ?>
           <?php woocommerce_catalog_ordering(); ?>
         </div>
-        <?php do_action('woocommerce_before_shop_loop'); ?>
         <?php if(woocommerce_product_loop()):
           woocommerce_product_loop_start();
           while(have_posts()){ the_post(); wc_get_template_part('content','product'); }

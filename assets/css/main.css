@@ -4601,6 +4601,82 @@ Responsive
 }
 
 /* ============================================
+   PROMO BANNERS — New Arrivals + Sale CTA
+   ============================================ */
+.bh-promo-banners { padding: 32px 0 40px; background: #f2f5f2; }
+
+.bh-pb-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+
+.bh-pb-card {
+  position: relative; overflow: hidden;
+  border-radius: 20px; padding: 32px 28px;
+  min-height: 170px; display: flex; align-items: center; gap: 20px;
+  text-decoration: none;
+  box-shadow: 0 6px 28px rgba(0,0,0,.15);
+  transition: transform .3s, box-shadow .3s;
+}
+.bh-pb-card:hover { transform: translateY(-5px); box-shadow: 0 16px 44px rgba(0,0,0,.22); }
+
+/* Decorative circles */
+.bh-pb-circle {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: rgba(255,255,255,.1);
+}
+.bh-pb-circle--1 { width: 220px; height: 220px; top: -70px; right: -70px; }
+.bh-pb-circle--2 { width: 120px; height: 120px; bottom: -40px; right: 60px; background: rgba(255,255,255,.07); }
+
+/* Icon */
+.bh-pb-icon-wrap {
+  position: relative; z-index: 1; flex-shrink: 0;
+  width: 60px; height: 60px; border-radius: 16px;
+  background: rgba(255,255,255,.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.bh-pb-icon-wrap i { font-size: 28px; color: #fff; }
+
+/* Body */
+.bh-pb-body { position: relative; z-index: 1; flex: 1; }
+.bh-pb-sup {
+  display: block; font-size: 10px; font-weight: 800;
+  color: rgba(255,255,255,.75); text-transform: uppercase;
+  letter-spacing: 1.2px; margin-bottom: 4px;
+}
+.bh-pb-title {
+  font-family: Poppins, sans-serif; font-size: 22px; font-weight: 900;
+  color: #fff; margin: 0 0 5px; line-height: 1.2;
+}
+.bh-pb-sub { font-size: 12px; color: rgba(255,255,255,.8); margin: 0 0 14px; }
+.bh-pb-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.2); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 8px 16px;
+  border-radius: 50px; border: 1.5px solid rgba(255,255,255,.4);
+  transition: background .2s;
+}
+.bh-pb-card:hover .bh-pb-cta { background: rgba(255,255,255,.35); }
+
+/* Big decorative text */
+.bh-pb-deco {
+  position: absolute; z-index: 0;
+  right: 24px; top: 50%; transform: translateY(-50%);
+  font-family: Poppins, sans-serif; font-size: 42px; font-weight: 900;
+  color: rgba(255,255,255,.12); letter-spacing: -1px; white-space: nowrap;
+  pointer-events: none; line-height: 1;
+}
+
+/* Responsive */
+@media(max-width:600px) {
+  .bh-pb-grid { grid-template-columns: 1fr; gap: 14px; }
+  .bh-pb-card { padding: 24px 20px; min-height: 130px; }
+  .bh-pb-title { font-size: 18px; }
+  .bh-pb-icon-wrap { width: 48px; height: 48px; }
+  .bh-pb-icon-wrap i { font-size: 22px; }
+  .bh-pb-deco { font-size: 30px; right: 16px; }
+}
+
+/* ============================================
    REUSABLE SECTION HEADER — .bh-section-head
    ============================================ */
 .bh-section-head {

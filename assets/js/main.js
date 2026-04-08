@@ -410,6 +410,20 @@
 
 })(jQuery);
 
+/* ── Mobile Shop Sidebar Toggle ── */
+(function($){
+  $('#bh-mobile-filter-toggle').on('click', function(){
+    var $sidebar = $('.bh-shop-sidebar');
+    var $btn = $(this);
+    $sidebar.toggleClass('bh-sidebar-open');
+    if($sidebar.hasClass('bh-sidebar-open')){
+      $btn.html('<i class="fas fa-times"></i> Close Filters');
+    } else {
+      $btn.html('<i class="fas fa-sliders-h"></i> Filter & Sort');
+    }
+  });
+})(jQuery);
+
 (function($){
 $(document).on("click",".bh-qty-plus",function(){
 var inp=$(this).siblings("input.input-qty");
