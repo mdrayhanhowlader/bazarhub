@@ -1538,7 +1538,7 @@ ul { list-style: none; }
 .bh-deals { background: #fff !important; }
 .bh-featured-products { background: #f8fdf8 !important; }
 .bh-new-arrivals { background: #fff !important; }
-.bh-offer-banners { background: #f8fdf8 !important; padding: 24px 0 !important; }
+.bh-offer-banners { background: #f2f5f2; }
 .bh-promo-banners { background: #fff !important; padding: 20px 0 !important; }
 .bh-cat-circles { background: #fff !important; }
 .bh-features { background: #f8fdf8 !important; }
@@ -4728,6 +4728,12 @@ Responsive
   color: rgba(255,255,255,.35);
 }
 
+/* Gradient backgrounds by card index */
+.bh-ob-card--1 { background: linear-gradient(135deg, #0d47a1 0%, #1976d2 55%, #42a5f5 100%); }
+.bh-ob-card--2 { background: linear-gradient(135deg, #4a148c 0%, #7b1fa2 55%, #ba68c8 100%); }
+.bh-ob-card--3 { background: linear-gradient(135deg, #bf360c 0%, #e64a19 55%, #ff8a65 100%); }
+.bh-ob-card--4 { background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 55%, #66bb6a 100%); }
+
 /* Responsive */
 @media(max-width:900px) {
   .bh-ob-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -4737,9 +4743,13 @@ Responsive
   .bh-ob-card__icon { font-size: 28px; }
 }
 @media(max-width:600px) {
-  .bh-ob-grid { grid-template-columns: 1fr; gap: 12px; }
-  .bh-ob-card { min-height: 120px; padding: 20px 18px; }
-  .bh-ob-card__body { max-width: 70%; }
-  .bh-ob-card__title { font-size: 16px; }
-  .bh-ob-card__discount { font-size: 22px; }
+  .bh-ob-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .bh-ob-card { min-height: 130px; padding: 18px 16px; }
+  .bh-ob-card__body { max-width: 65%; }
+  .bh-ob-card__title { font-size: 15px; }
+  .bh-ob-card__discount { font-size: 20px; }
+  .bh-ob-card__icon { font-size: 24px; }
+}
+@media(max-width:400px) {
+  .bh-ob-grid { grid-template-columns: 1fr; }
 }

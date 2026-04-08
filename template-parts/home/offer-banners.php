@@ -65,7 +65,7 @@ $offers = [
         $discount = get_theme_mod("offer_discount_{$o['i']}", $o['discount']);
         $sub      = get_theme_mod("offer_sub_{$o['i']}",   $o['sub']);
       ?>
-      <a href="<?php echo esc_url($url); ?>" class="bh-ob-card" style="background:<?php echo esc_attr($o['bg']); ?>">
+      <a href="<?php echo esc_url($url); ?>" class="bh-ob-card bh-ob-card--<?php echo (int)$o['i']; ?>">
 
         <?php if ($img): ?>
           <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($title); ?>" class="bh-ob-card__bg-img">
