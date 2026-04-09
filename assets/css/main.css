@@ -2273,7 +2273,7 @@ Responsive
   background: #1b5e20;
   color: rgba(255,255,255,.85);
   font-size: 12.5px;
-  padding: 6px 0;
+  padding: 2px 0 9px;
   border-bottom: 1px solid rgba(255,255,255,.1);
 }
 .bh-topbar-new__inner {
@@ -4828,4 +4828,203 @@ Responsive
 }
 @media(max-width:400px) {
   .bh-ob-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   Category Hero Banner (taxonomy-product_cat.php)
+   ═══════════════════════════════════════════════════════ */
+
+@keyframes bh-float-up {
+  0%   { transform: translateY(0)   rotate(0deg);   opacity:.6; }
+  50%  { transform: translateY(-22px) rotate(15deg); opacity:1;  }
+  100% { transform: translateY(0)   rotate(0deg);   opacity:.6; }
+}
+@keyframes bh-ring-pulse {
+  0%,100% { transform: scale(1);   opacity:.15; }
+  50%      { transform: scale(1.1); opacity:.28; }
+}
+@keyframes bh-fade-up {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0);    }
+}
+
+.bh-cat-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 52px 0 44px;
+  margin-bottom: 0;
+}
+
+/* Animated decorative rings */
+.bh-cat-hero__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.18);
+  pointer-events: none;
+  animation: bh-ring-pulse 4s ease-in-out infinite;
+}
+.bh-cat-hero__ring--1 {
+  width: 320px; height: 320px;
+  top: -80px; right: -60px;
+  animation-delay: 0s;
+}
+.bh-cat-hero__ring--2 {
+  width: 500px; height: 500px;
+  top: -180px; right: -140px;
+  animation-delay: 1.2s;
+}
+
+/* Floating particle text */
+.bh-cat-hero__p {
+  position: absolute;
+  font-size: 22px;
+  color: rgba(255,255,255,.35);
+  pointer-events: none;
+  animation: bh-float-up 3s ease-in-out infinite;
+  user-select: none;
+}
+.bh-cat-hero__p--1 { top: 12%;  left: 5%;  animation-duration: 3.2s; animation-delay: 0s;    }
+.bh-cat-hero__p--2 { top: 55%;  left: 12%; animation-duration: 2.8s; animation-delay: 0.6s;  }
+.bh-cat-hero__p--3 { top: 18%;  left: 88%; animation-duration: 3.6s; animation-delay: 1.1s;  font-size:14px; }
+.bh-cat-hero__p--4 { top: 65%;  left: 80%; animation-duration: 2.5s; animation-delay: 1.8s;  font-size:30px; opacity:.2; }
+
+.bh-cat-hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+  animation: bh-fade-up .55s ease both;
+}
+
+/* Icon bubble */
+.bh-cat-hero__icon-wrap {
+  flex-shrink: 0;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+  border: 2px solid rgba(255,255,255,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+/* Text block */
+.bh-cat-hero__text { flex: 1; }
+
+.bh-cat-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,.22);
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.bh-cat-hero__badge--sale { background: rgba(0,0,0,.25); border-color: rgba(255,255,255,.3); }
+.bh-cat-hero__badge--feat { background: rgba(255,193,7,.3); border-color: rgba(255,193,7,.5); }
+
+.bh-cat-hero__title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.15;
+  text-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+.bh-cat-hero__sub {
+  font-size: 14.5px;
+  color: rgba(255,255,255,.85);
+  margin: 0 0 18px;
+  max-width: 460px;
+}
+
+.bh-cat-hero__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bh-cat-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border-radius: 24px;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.bh-cat-hero__btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+
+.bh-cat-hero__btn--all {
+  background: #fff;
+  color: #1b5e20;
+}
+.bh-cat-hero__btn--sale {
+  background: rgba(255,255,255,.18);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,.5);
+}
+.bh-cat-hero__btn--sale:hover { background: rgba(255,255,255,.28); }
+
+/* Right side — deal badge */
+.bh-cat-hero__deal-badge {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.25);
+  border: 3px solid rgba(255,255,255,.35);
+  color: #fff;
+  text-align: center;
+  animation: bh-ring-pulse 2.5s ease-in-out infinite;
+}
+.bh-cat-hero__deal-pct { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.bh-cat-hero__deal-num { font-size: 38px; font-weight: 900; line-height: 1; }
+.bh-cat-hero__deal-off { font-size: 12px; font-weight: 800; letter-spacing: .12em; opacity: .9; }
+
+/* Right side — decorative text (non-sale) */
+.bh-cat-hero__deco-text {
+  flex-shrink: 0;
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(255,255,255,.1);
+  line-height: 1;
+  letter-spacing: -2px;
+  user-select: none;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+/* Shop page variant without top padding */
+.bh-shop-page--no-top { padding-top: 0 !important; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bh-cat-hero { padding: 36px 0 28px; }
+  .bh-cat-hero__title { font-size: 26px; }
+  .bh-cat-hero__icon-wrap { width: 60px; height: 60px; font-size: 24px; }
+  .bh-cat-hero__deal-badge { width: 100px; height: 100px; }
+  .bh-cat-hero__deal-num { font-size: 28px; }
+  .bh-cat-hero__deco-text { font-size: 50px; }
+}
+@media (max-width: 540px) {
+  .bh-cat-hero__inner { flex-wrap: wrap; gap: 16px; }
+  .bh-cat-hero__deal-badge,
+  .bh-cat-hero__deco-text { display: none; }
+  .bh-cat-hero__title { font-size: 22px; }
+  .bh-cat-hero__icon-wrap { width: 52px; height: 52px; font-size: 20px; }
 }

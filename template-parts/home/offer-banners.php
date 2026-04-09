@@ -1,4 +1,13 @@
 <?php
+// Helper: get category URL by slug, fallback to shop
+function bh_cat_sale_url($slug) {
+    $term = get_term_by('slug', $slug, 'product_cat');
+    if ($term && !is_wp_error($term)) {
+        return add_query_arg('on_sale','1', get_term_link($term));
+    }
+    return add_query_arg('on_sale','1', get_permalink(wc_get_page_id('shop')));
+}
+
 $offers = [
   [
     'i'        => 1,
@@ -7,7 +16,7 @@ $offers = [
     'discount' => '40% OFF',
     'sub'      => __('Limited time offer','bazaarhub'),
     'icon'     => 'fas fa-laptop',
-    'bg'       => 'linear-gradient(135deg,#0d47a1,#1976d2 50%,#42a5f5)',
+    'cat'      => 'electronics',
   ],
   [
     'i'        => 2,
@@ -16,7 +25,7 @@ $offers = [
     'discount' => '30% OFF',
     'sub'      => __('New collection in','bazaarhub'),
     'icon'     => 'fas fa-tshirt',
-    'bg'       => 'linear-gradient(135deg,#4a148c,#7b1fa2 50%,#ce93d8)',
+    'cat'      => 'fashion',
   ],
   [
     'i'        => 3,
@@ -25,7 +34,7 @@ $offers = [
     'discount' => '25% OFF',
     'sub'      => __('Everyday essentials','bazaarhub'),
     'icon'     => 'fas fa-blender',
-    'bg'       => 'linear-gradient(135deg,#bf360c,#e64a19 50%,#ff8a65)',
+    'cat'      => 'home-kitchen',
   ],
   [
     'i'        => 4,
@@ -34,7 +43,7 @@ $offers = [
     'discount' => '35% OFF',
     'sub'      => __('Top brands on sale','bazaarhub'),
     'icon'     => 'fas fa-mobile-alt',
-    'bg'       => 'linear-gradient(135deg,#1b5e20,#2e7d32 50%,#66bb6a)',
+    'cat'      => 'gadgets',
   ],
 ];
 ?>
@@ -59,7 +68,8 @@ $offers = [
     <div class="bh-ob-grid">
       <?php foreach ($offers as $o):
         $img      = get_theme_mod("offer_image_{$o['i']}", '');
-        $url      = get_theme_mod("offer_url_{$o['i']}",   get_permalink(wc_get_page_id('shop')));
+        $default_url = bh_cat_sale_url($o['cat']);
+        $url      = get_theme_mod("offer_url_{$o['i']}", $default_url) ?: $default_url;
         $title    = get_theme_mod("offer_label_{$o['i']}", $o['title']);
         $badge    = get_theme_mod("offer_badge_{$o['i']}", $o['badge']);
         $discount = get_theme_mod("offer_discount_{$o['i']}", $o['discount']);

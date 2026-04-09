@@ -696,7 +696,7 @@ table.variations td.value select:focus{border-color:#2e7d32}
   background: #f1f8e9; border: 1.5px solid #e8e8e8; overflow: hidden;
   transition: all .15s;
 }
-.bh-sidebar-cat-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.bh-sidebar-cat-thumb img { width: 100%; height: 100%; object-fit: contain; object-position: center; padding: 2px; }
 .bh-sidebar-cat-thumb i { font-size: 13px; color: #81c784; }
 .bh-sidebar-cat-list li a:hover .bh-sidebar-cat-thumb,
 .bh-sidebar-cat-list li.active a .bh-sidebar-cat-thumb {
@@ -1016,4 +1016,132 @@ table.variations td.value select:focus{border-color:#2e7d32}
     padding: 8px 8px !important;
     gap: 4px !important;
   }
+}
+
+/* ══════════════════════════════════════════════
+   PRODUCT CARD — Full-Width Animated Badges
+   ══════════════════════════════════════════════ */
+
+@keyframes bh-pbadge-shimmer {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(250%)  skewX(-15deg); }
+}
+@keyframes bh-pbadge-flame {
+  0%,100% { text-shadow: 0 0 4px rgba(255,200,0,.9), 0 0 10px rgba(255,80,0,.7); }
+  50%      { text-shadow: 0 0 8px rgba(255,220,0,1),  0 0 18px rgba(255,60,0,1);  }
+}
+@keyframes bh-pbadge-bolt {
+  0%,90%,100% { opacity:1; }
+  92%         { opacity:.4; }
+  96%         { opacity:1; }
+  98%         { opacity:.6; }
+}
+@keyframes bh-pbadge-star-spin {
+  from { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.3); }
+  to   { transform: rotate(360deg) scale(1); }
+}
+@keyframes bh-pbadge-new-pulse {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.15); }
+}
+
+/* Hide the old WooCommerce onsale badge */
+.woocommerce ul.products li.product .onsale,
+.woocommerce-page ul.products li.product .onsale {
+  display: none !important;
+}
+
+/* Ensure card has relative positioning */
+.woocommerce ul.products li.product,
+.woocommerce-page ul.products li.product {
+  position: relative !important;
+}
+
+/* Base badge — full width bar at top of card */
+.bh-pbadge {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: #fff;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Shimmer sweep */
+.bh-pbadge__shimmer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  animation: bh-pbadge-shimmer 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.bh-pbadge__icon { font-size: 13px; position: relative; z-index: 1; flex-shrink: 0; }
+.bh-pbadge__label { position: relative; z-index: 1; }
+.bh-pbadge__pct {
+  position: relative; z-index: 1;
+  background: rgba(0,0,0,.22);
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+/* ── HOT DEAL (featured + sale) — fire gradient ── */
+.bh-pbadge--hot {
+  background: linear-gradient(90deg, #b71c1c 0%, #e53935 40%, #ff6f00 100%);
+}
+.bh-pbadge--hot .bh-pbadge__icon {
+  animation: bh-pbadge-flame 1.2s ease-in-out infinite;
+}
+.bh-pbadge--hot .bh-pbadge__shimmer {
+  animation-duration: 1.8s;
+  background: linear-gradient(90deg, transparent, rgba(255,220,100,.4), transparent);
+}
+
+/* ── FLASH SALE (on sale) — electric blue/yellow ── */
+.bh-pbadge--flash {
+  background: linear-gradient(90deg, #0d47a1 0%, #1565c0 45%, #f9a825 100%);
+}
+.bh-pbadge--flash .bh-pbadge__icon {
+  animation: bh-pbadge-bolt 2.2s ease-in-out infinite;
+  color: #ffe082;
+}
+.bh-pbadge--flash .bh-pbadge__shimmer {
+  animation-duration: 2s;
+}
+
+/* ── FEATURED — gold/amber ── */
+.bh-pbadge--featured {
+  background: linear-gradient(90deg, #e65100 0%, #f57f17 50%, #ffc107 100%);
+}
+.bh-pbadge--featured .bh-pbadge__icon {
+  animation: bh-pbadge-star-spin 3s linear infinite;
+  color: #fff9c4;
+}
+
+/* ── NEW ARRIVAL — green pulse ── */
+.bh-pbadge--new {
+  background: linear-gradient(90deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%);
+}
+.bh-pbadge--new .bh-pbadge__icon {
+  animation: bh-pbadge-new-pulse 1.8s ease-in-out infinite;
+}
+
+/* Push product image down so badge doesn't overlap image */
+.woocommerce ul.products li.product a img,
+.woocommerce-page ul.products li.product a img {
+  display: block;
 }
