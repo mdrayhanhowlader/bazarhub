@@ -469,43 +469,48 @@ $btn.find("span").text(active?"Add to Wishlist":"Remove from Wishlist");
   var $overlay = $('#bh-popup-overlay');
   if(!$overlay.length) return;
 
-  // Show after 3 seconds
+  function setCookie(name, value, seconds) {
+    var expires = new Date(Date.now() + seconds * 1000).toUTCString();
+    document.cookie = name + '=' + value + '; path=/; expires=' + expires;
+  }
+
+  function dismiss(permanent) {
+    $overlay.addClass('hidden');
+    if (permanent) {
+      setCookie('bh_popup_dismissed', 'permanent', 60 * 60 * 24 * 30); // 30 days
+    } else {
+      // Hide until midnight today
+      var now      = new Date();
+      var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+      setCookie('bh_popup_dismissed', 'today', Math.round((midnight - now) / 1000));
+    }
+  }
+
+  // Show after 3-second delay
   setTimeout(function(){
-    if(localStorage.getItem('bh_popup_skip')) { $overlay.remove(); return; }
-    var lastShown = localStorage.getItem('bh_popup_date');
-    var today = new Date().toDateString();
-    if(lastShown === today) { $overlay.remove(); return; }
-    localStorage.setItem('bh_popup_date', today);
     $overlay.removeClass('hidden');
   }, 3000);
 
-  // Close on X
+  // Close on X — permanent if checkbox checked
   $('#bh-popup-close').on('click', function(){
-    $overlay.addClass('hidden');
+    dismiss($('#bh-popup-skip').is(':checked'));
   });
 
-  // Close on overlay click
+  // Close on backdrop click
   $overlay.on('click', function(e){
-    if($(e.target).is($overlay)) $overlay.addClass('hidden');
+    if($(e.target).is($overlay)) dismiss(false);
   });
 
   // Close on ESC
   $(document).on('keydown', function(e){
-    if(e.key === 'Escape') $overlay.addClass('hidden');
+    if(e.key === 'Escape') dismiss(false);
   });
 
-  // Don't show again checkbox
-  $('#bh-popup-skip').on('change', function(){
-    if($(this).is(':checked')) localStorage.setItem('bh_popup_skip','1');
-    else localStorage.removeItem('bh_popup_skip');
-  });
-
-  // Form submit
+  // Form submit — permanent dismiss after success message
   $('#bh-popup-form').on('submit', function(e){
     e.preventDefault();
     $(this).html('<p style="color:#2e7d32;font-weight:700;text-align:center;padding:16px"><i class="fas fa-check-circle" style="font-size:28px;display:block;margin-bottom:8px"></i>Subscribed successfully!</p>');
-    localStorage.setItem('bh_popup_skip','1');
-    setTimeout(function(){ $overlay.addClass('hidden'); }, 2000);
+    setTimeout(function(){ dismiss(true); }, 2000);
   });
 
   /* ── Category Menu Toggle ── */
