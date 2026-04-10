@@ -271,24 +271,21 @@
   font-weight: 600;
   flex-wrap: wrap;
 }
+.bh-nf-pay__label { color: rgba(255,255,255,.5); font-size: 11px; font-weight: 600; white-space: nowrap; }
 .bh-pay-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border-radius: 5px;
-  padding: 3px 7px;
-  height: 26px;
+  border-radius: 6px;
+  padding: 3px 8px;
+  min-width: 44px;
+  height: 28px;
   transition: transform .15s, box-shadow .15s;
   cursor: default;
-  box-shadow: 0 1px 4px rgba(0,0,0,.18);
+  box-shadow: 0 1px 5px rgba(0,0,0,.3);
 }
-.bh-pay-badge:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.25); }
-.bh-pay-badge svg { height: 16px; width: auto; display: block; }
-/* Coloured backgrounds for mobile wallets */
-.bh-pay-badge--bkash  { background: #fce4f0; }
-.bh-pay-badge--nagad  { background: #fef0eb; }
-.bh-pay-badge--rocket { background: #f4e4f4; }
+.bh-pay-badge:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+.bh-pay-badge svg { height: 18px; width: auto; display: block; }
 
 /* ── Responsive ── */
 @media(max-width:1200px) {

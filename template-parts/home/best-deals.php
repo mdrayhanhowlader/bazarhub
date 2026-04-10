@@ -29,7 +29,20 @@ if (!$query->have_posts()) return;
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
         <div class="bh-deals__countdown">
           <span class="bh-deals__countdown-label"><?php _e('Ends in:','bazaarhub'); ?></span>
-          <div class="bh-countdown" id="bh-deals-countdown" data-end="<?php echo esc_attr(date('Y-m-d',strtotime('+1 day')).'T23:59:59'); ?>">
+          <?php
+          $raw_end  = bazaarhub_get_option('deals_timer_end','');
+          $end_date = '';
+          if ($raw_end) {
+              $ts = strtotime($raw_end);
+              if ($ts && $ts > time()) {
+                  $end_date = date('Y-m-d\TH:i:s', $ts);
+              }
+          }
+          if (!$end_date) {
+              $end_date = date('Y-m-d', strtotime('+1 day')) . 'T23:59:59';
+          }
+          ?>
+          <div class="bh-countdown" id="bh-deals-countdown" data-end="<?php echo esc_attr($end_date); ?>">
             <div class="bh-countdown__item"><span class="bh-countdown__num" id="bh-cd-h">00</span><span class="bh-countdown__lbl">Hrs</span></div>
             <span class="bh-countdown__sep">:</span>
             <div class="bh-countdown__item"><span class="bh-countdown__num" id="bh-cd-m">00</span><span class="bh-countdown__lbl">Min</span></div>

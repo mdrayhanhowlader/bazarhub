@@ -69,7 +69,7 @@ function bazaarhub_customizer( $wp_customize ) {
     $wp_customize->add_control('deals_title',    ['label'=>'Section Title','section'=>'bh_deals','type'=>'text']);
     $wp_customize->add_control('deals_category', ['label'=>'Category Slug (leave empty = on-sale products)','section'=>'bh_deals','type'=>'text']);
     $wp_customize->add_control('deals_count',    ['label'=>'Products to Show','section'=>'bh_deals','type'=>'number']);
-    $wp_customize->add_control('deals_timer_end',['label'=>'Countdown End Date (YYYY-MM-DD HH:MM:SS)','section'=>'bh_deals','type'=>'text']);
+    $wp_customize->add_control('deals_timer_end',['label'=>'Countdown End Date/Time','description'=>'Format: 2026-04-30 23:59:59  (leave empty = counts to tomorrow midnight)','section'=>'bh_deals','type'=>'text','input_attrs'=>['placeholder'=>'2026-04-30 23:59:59']]);
 
     // ── Colors ───────────────────────────────────────────
     $wp_customize->add_section('bh_colors', ['title'=>'Theme Colors','priority'=>35]);
