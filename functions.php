@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'BAZAARHUB_VERSION', '1.3.3' );
+define( 'BAZAARHUB_VERSION', '1.4.0' );
 define( 'BAZAARHUB_DIR', get_template_directory() );
 define( 'BAZAARHUB_URI', get_template_directory_uri() );
 
@@ -112,49 +112,16 @@ require_once BAZAARHUB_DIR . '/inc/ajax-handlers.php';
 require_once BAZAARHUB_DIR . '/inc/compare.php';
 require_once BAZAARHUB_DIR . '/inc/helpers.php';
 require_once BAZAARHUB_DIR . '/inc/product-sections.php';
+require_once BAZAARHUB_DIR . '/inc/theme-setup.php';
 
 function bazaarhub_flush_on_activate() {
+    // Legacy: still create compare/wishlist pages via their own functions
+    // Full setup is now handled by inc/theme-setup.php on after_switch_theme
     bazaarhub_create_compare_page();
     bazaarhub_create_wishlist_page();
-    bazaarhub_create_info_pages();
     flush_rewrite_rules();
 }
-add_action('after_switch_theme','bazaarhub_flush_on_activate',20);
 add_action('init','bazaarhub_flush_on_activate',99);
-
-/**
- * Auto-create information pages on theme activation.
- */
-function bazaarhub_create_info_pages() {
-    $pages = [
-        ['title'=>'About Us',          'slug'=>'about-us',          'template'=>'page-about.php'],
-        ['title'=>'Contact Us',        'slug'=>'contact-us',        'template'=>'page-contact.php'],
-        ['title'=>'Privacy Policy',    'slug'=>'privacy-policy',    'template'=>'page-privacy.php'],
-        ['title'=>'Terms & Conditions','slug'=>'terms-conditions',   'template'=>'page-terms.php'],
-        ['title'=>'Return Policy',     'slug'=>'return-policy',     'template'=>'page-return.php'],
-    ];
-    foreach ($pages as $page) {
-        $existing = get_page_by_path($page['slug']);
-        if (!$existing) {
-            $id = wp_insert_post([
-                'post_title'   => $page['title'],
-                'post_name'    => $page['slug'],
-                'post_status'  => 'publish',
-                'post_type'    => 'page',
-                'post_content' => '',
-            ]);
-            if ($id && !is_wp_error($id)) {
-                update_post_meta($id, '_wp_page_template', $page['template']);
-            }
-        } else {
-            // Ensure correct template is assigned
-            $tmpl = get_post_meta($existing->ID, '_wp_page_template', true);
-            if ($tmpl !== $page['template']) {
-                update_post_meta($existing->ID, '_wp_page_template', $page['template']);
-            }
-        }
-    }
-}
 
 /**
  * Admin notice recommending plugins.
