@@ -1,6 +1,10 @@
 <?php
-$query = new WP_Query(['post_type'=>'product','post_status'=>'publish','posts_per_page'=>8,
-  'tax_query'=>[['taxonomy'=>'product_visibility','field'=>'name','terms'=>'featured']],'orderby'=>'date','order'=>'DESC']);
+// Priority: manually tagged "Today's Pick"; fallback to WC Featured; fallback to popular
+$query = bh_get_section_products('bh_todays_pick', 8);
+if (!$query->have_posts()) {
+    $query = new WP_Query(['post_type'=>'product','post_status'=>'publish','posts_per_page'=>8,
+        'tax_query'=>[['taxonomy'=>'product_visibility','field'=>'name','terms'=>'featured']],'orderby'=>'date','order'=>'DESC']);
+}
 if (!$query->have_posts()) {
     $query = new WP_Query(['post_type'=>'product','post_status'=>'publish','posts_per_page'=>8,'orderby'=>'popularity','order'=>'DESC']);
 }

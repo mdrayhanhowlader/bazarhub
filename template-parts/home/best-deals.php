@@ -5,9 +5,13 @@ $count    = absint(bazaarhub_get_option('deals_count',8));
 
 $cats = get_terms(['taxonomy'=>'product_cat','hide_empty'=>true,'parent'=>0,'number'=>12,'orderby'=>'count','order'=>'DESC']);
 
-$args = ['post_type'=>'product','post_status'=>'publish','posts_per_page'=>$count,'orderby'=>'date','order'=>'DESC'];
-if ($cat_slug) $args['tax_query'] = [['taxonomy'=>'product_cat','field'=>'slug','terms'=>$cat_slug]];
-$query = new WP_Query($args);
+// Priority: manually tagged "Hot Deal" products; fallback to category/date
+$query = bh_get_section_products('bh_hot_deal', $count);
+if (!$query->have_posts()) {
+    $args = ['post_type'=>'product','post_status'=>'publish','posts_per_page'=>$count,'orderby'=>'date','order'=>'DESC'];
+    if ($cat_slug) $args['tax_query'] = [['taxonomy'=>'product_cat','field'=>'slug','terms'=>$cat_slug]];
+    $query = new WP_Query($args);
+}
 if (!$query->have_posts()) return;
 ?>
 <section class="bh-deals" id="bh-deals">

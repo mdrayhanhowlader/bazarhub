@@ -116,11 +116,35 @@
     <div class="bh-container bh-nf-bottom-inner">
       <p><?php echo wp_kses_post(get_theme_mod('footer_copyright','&copy; 2026 Modhu Bazar Shop. All rights reserved.')); ?></p>
       <div class="bh-nf-pay">
-        <span>We Accept:</span>
-        <i class="fab fa-cc-visa" title="Visa"></i>
-        <i class="fab fa-cc-mastercard" title="Mastercard"></i>
-        <i class="fab fa-cc-paypal" title="PayPal"></i>
-        <i class="fas fa-mobile-alt" title="bKash/Nagad"></i>
+        <span><?php _e('We Accept:','bazaarhub'); ?></span>
+        <!-- Visa -->
+        <span class="bh-pay-badge bh-pay-badge--visa" title="Visa">
+          <svg viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg" aria-label="Visa"><text x="0" y="16" fill="#1a1f71" font-family="Arial Black,sans-serif" font-size="18" font-weight="900" letter-spacing="-1">VISA</text></svg>
+        </span>
+        <!-- Mastercard -->
+        <span class="bh-pay-badge bh-pay-badge--mc" title="Mastercard">
+          <svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+            <circle cx="14" cy="12" r="10" fill="#eb001b"/>
+            <circle cx="24" cy="12" r="10" fill="#f79e1b"/>
+            <path d="M19 5.5a10 10 0 0 1 0 13A10 10 0 0 1 19 5.5z" fill="#ff5f00"/>
+          </svg>
+        </span>
+        <!-- American Express -->
+        <span class="bh-pay-badge bh-pay-badge--amex" title="American Express">
+          <svg viewBox="0 0 52 20" xmlns="http://www.w3.org/2000/svg" aria-label="Amex"><text x="0" y="15" fill="#2e77bc" font-family="Arial Black,sans-serif" font-size="11" font-weight="900" letter-spacing="0">AMEX</text></svg>
+        </span>
+        <!-- bKash -->
+        <span class="bh-pay-badge bh-pay-badge--bkash" title="bKash">
+          <svg viewBox="0 0 56 20" xmlns="http://www.w3.org/2000/svg" aria-label="bKash"><text x="0" y="15" fill="#e2136e" font-family="Arial Black,sans-serif" font-size="13" font-weight="900">bKash</text></svg>
+        </span>
+        <!-- Nagad -->
+        <span class="bh-pay-badge bh-pay-badge--nagad" title="Nagad">
+          <svg viewBox="0 0 56 20" xmlns="http://www.w3.org/2000/svg" aria-label="Nagad"><text x="0" y="15" fill="#f05a28" font-family="Arial Black,sans-serif" font-size="13" font-weight="900">Nagad</text></svg>
+        </span>
+        <!-- Rocket -->
+        <span class="bh-pay-badge bh-pay-badge--rocket" title="Rocket (DBBL)">
+          <svg viewBox="0 0 62 20" xmlns="http://www.w3.org/2000/svg" aria-label="Rocket"><text x="0" y="15" fill="#8b008b" font-family="Arial Black,sans-serif" font-size="11" font-weight="900">Rocket</text></svg>
+        </span>
       </div>
     </div>
   </div>
