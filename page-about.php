@@ -52,7 +52,8 @@ get_header(); ?>
           </ul>
 
           <h2><?php _e('Contact Us','bazaarhub'); ?></h2>
-          <p><?php _e('Have questions? Reach us at','bazaarhub'); ?> <a href="mailto:support@modhubazarshop.com">support@modhubazarshop.com</a> <?php _e('or call us at','bazaarhub'); ?> <?php echo esc_html(get_theme_mod('top_bar_phone','01700-000000')); ?>.</p>
+          <?php $email = get_theme_mod('contact_email','support@modhubazarshop.com'); ?>
+          <p><?php _e('Have questions? Reach us at','bazaarhub'); ?> <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a> <?php _e('or call us at','bazaarhub'); ?> <?php echo esc_html(get_theme_mod('top_bar_phone','01700-000000')); ?>.</p>
           <?php endif; endwhile; endif; ?>
       </div>
 

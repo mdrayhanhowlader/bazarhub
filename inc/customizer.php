@@ -95,6 +95,14 @@ function bazaarhub_customizer( $wp_customize ) {
         $wp_customize->add_setting("social_$s", ['default'=>'#','sanitize_callback'=>'esc_url_raw']);
         $wp_customize->add_control("social_$s",  ['label'=>ucfirst($s).' URL','section'=>'bh_social','type'=>'url']);
     }
+    // ── Contact Info ─────────────────────────────────────
+    $wp_customize->add_section('bh_contact_info', ['title'=>'Contact Information','priority'=>36]);
+    $wp_customize->add_setting('contact_email',   ['default'=>'support@modhubazarshop.com','sanitize_callback'=>'sanitize_email']);
+    $wp_customize->add_setting('contact_address', ['default'=>'Dhaka, Bangladesh','sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_setting('contact_hours',   ['default'=>'Sat–Thu: 9AM – 9PM','sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_control('contact_email',   ['label'=>'Support Email','section'=>'bh_contact_info','type'=>'email']);
+    $wp_customize->add_control('contact_address', ['label'=>'Address','section'=>'bh_contact_info','type'=>'text']);
+    $wp_customize->add_control('contact_hours',   ['label'=>'Business Hours','section'=>'bh_contact_info','type'=>'text']);
 }
 add_action( 'customize_register', 'bazaarhub_customizer' );
 
@@ -150,5 +158,49 @@ function bazaarhub_customizer_extra($wp_customize) {
         $wp_customize->add_control("promo_side_url_$i",  ['label'=>"Promo $i URL",'section'=>'bh_promo_side','type'=>'url']);
         $wp_customize->add_control("promo_side_label_$i",['label'=>"Promo $i Label",'section'=>'bh_promo_side','type'=>'text']);
     }
+    // ── Features Bar ────────────────────────────────────
+    $wp_customize->add_section('bh_features_bar',['title'=>'Features Bar (Footer Top Strip)','priority'=>41]);
+    $features_defaults = [
+        1 => ['icon'=>'fas fa-truck',      'title'=>'Free Delivery', 'sub'=>'On orders over ৳500'],
+        2 => ['icon'=>'fas fa-headset',    'title'=>'24/7 Support',  'sub'=>'Dedicated support'],
+        3 => ['icon'=>'fas fa-shield-alt', 'title'=>'Secure Payment','sub'=>'100% secure'],
+        4 => ['icon'=>'fas fa-undo-alt',   'title'=>'Easy Returns',  'sub'=>'30-day return policy'],
+    ];
+    for ($i=1; $i<=4; $i++) {
+        $d = $features_defaults[$i];
+        $wp_customize->add_setting("feature_icon_$i",  ['default'=>$d['icon'], 'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_setting("feature_title_$i", ['default'=>$d['title'],'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_setting("feature_sub_$i",   ['default'=>$d['sub'],  'sanitize_callback'=>'sanitize_text_field']);
+        $wp_customize->add_control("feature_icon_$i",  ['label'=>"Feature $i — Icon Class (Font Awesome)", 'section'=>'bh_features_bar','type'=>'text','description'=>'e.g. fas fa-truck']);
+        $wp_customize->add_control("feature_title_$i", ['label'=>"Feature $i — Title",    'section'=>'bh_features_bar','type'=>'text']);
+        $wp_customize->add_control("feature_sub_$i",   ['label'=>"Feature $i — Subtitle", 'section'=>'bh_features_bar','type'=>'text']);
+    }
+
+    // ── Newsletter Popup ─────────────────────────────────
+    $wp_customize->add_section('bh_popup',['title'=>'Newsletter Popup','priority'=>42]);
+    $wp_customize->add_setting('popup_enable',   ['default'=>'1',                             'sanitize_callback'=>'absint']);
+    $wp_customize->add_setting('popup_delay',    ['default'=>'3',                             'sanitize_callback'=>'absint']);
+    $wp_customize->add_setting('popup_image',    ['default'=>'',                              'sanitize_callback'=>'esc_url_raw']);
+    $wp_customize->add_setting('popup_tag',      ['default'=>'EXCLUSIVE OFFER',               'sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_setting('popup_title',    ['default'=>'Want Access to Discounts & Deals?','sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_setting('popup_discount', ['default'=>'25% OFF',                       'sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_setting('popup_sub',      ['default'=>'Subscribe today and get <strong>%discount%</strong> your first order. Limited time offer.','sanitize_callback'=>'wp_kses_post']);
+    $wp_customize->add_setting('popup_btn',      ['default'=>'Subscribe',                     'sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_setting('popup_note',     ['default'=>'* Free delivery on first order. No spam, unsubscribe anytime.','sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_control('popup_enable',   ['label'=>'Enable Newsletter Popup','section'=>'bh_popup','type'=>'checkbox']);
+    $wp_customize->add_control('popup_delay',    ['label'=>'Show After (seconds)','section'=>'bh_popup','type'=>'number','input_attrs'=>['min'=>0,'max'=>30]]);
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize,'popup_image',['label'=>'Left Side Image (optional)','section'=>'bh_popup']));
+    $wp_customize->add_control('popup_tag',      ['label'=>'Top Tag Text','section'=>'bh_popup','type'=>'text']);
+    $wp_customize->add_control('popup_title',    ['label'=>'Popup Title','section'=>'bh_popup','type'=>'text']);
+    $wp_customize->add_control('popup_discount', ['label'=>'Discount Text (e.g. 25% OFF)','section'=>'bh_popup','type'=>'text']);
+    $wp_customize->add_control('popup_btn',      ['label'=>'Subscribe Button Text','section'=>'bh_popup','type'=>'text']);
+    $wp_customize->add_control('popup_note',     ['label'=>'Small Note Below Form','section'=>'bh_popup','type'=>'text']);
+
+    // ── App Download Links ───────────────────────────────
+    $wp_customize->add_section('bh_app_links',['title'=>'App Download Links (Footer)','priority'=>43]);
+    $wp_customize->add_setting('app_play_url',  ['default'=>'#','sanitize_callback'=>'esc_url_raw']);
+    $wp_customize->add_setting('app_store_url', ['default'=>'#','sanitize_callback'=>'esc_url_raw']);
+    $wp_customize->add_control('app_play_url',  ['label'=>'Google Play Store URL','section'=>'bh_app_links','type'=>'url']);
+    $wp_customize->add_control('app_store_url', ['label'=>'Apple App Store URL','section'=>'bh_app_links','type'=>'url']);
 }
 add_action('customize_register','bazaarhub_customizer_extra');

@@ -53,7 +53,7 @@
       else: ?>
         <a href="<?php echo esc_url(home_url('/')); ?>" class="bh-logo-text">
           <i class="fas fa-store"></i>
-          <span>Modhu Bazar Shop</span>
+          <span><?php echo esc_html(get_bloginfo('name')); ?></span>
         </a>
       <?php endif; ?>
     </div>
@@ -160,7 +160,7 @@
   <div class="bh-mobile-menu__header">
     <div class="bh-mobile-menu__logo">
       <i class="fas fa-store"></i>
-      <span>Modhu Bazar Shop</span>
+      <span><?php echo esc_html(get_bloginfo('name')); ?></span>
     </div>
     <button id="bh-mobile-close" class="bh-mobile-menu__close"><i class="fas fa-times"></i></button>
   </div>

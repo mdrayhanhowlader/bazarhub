@@ -22,12 +22,12 @@ get_header(); ?>
         <div class="bh-info-card">
           <i class="fas fa-envelope"></i>
           <h4><?php _e('Email','bazaarhub'); ?></h4>
-          <p>support@modhubazarshop.com</p>
+          <p><?php echo esc_html(get_theme_mod('contact_email','support@modhubazarshop.com')); ?></p>
         </div>
         <div class="bh-info-card">
           <i class="fas fa-clock"></i>
           <h4><?php _e('Working Hours','bazaarhub'); ?></h4>
-          <p><?php _e('Sat–Thu: 9AM – 9PM','bazaarhub'); ?></p>
+          <p><?php echo esc_html(get_theme_mod('contact_hours','Sat–Thu: 9AM – 9PM')); ?></p>
         </div>
       </div>
 

@@ -486,10 +486,11 @@ $btn.find("span").text(active?"Add to Wishlist":"Remove from Wishlist");
     }
   }
 
-  // Show after 3-second delay
+  // Show after delay (set via Customizer → Newsletter Popup → "Show After")
+  var delaySeconds = parseInt($overlay.data('delay'), 10) || 3;
   setTimeout(function(){
     $overlay.removeClass('hidden');
-  }, 3000);
+  }, delaySeconds * 1000);
 
   // Close on X — permanent if checkbox checked
   $('#bh-popup-close').on('click', function(){

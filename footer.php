@@ -14,7 +14,7 @@
         <div class="bh-nf-brand">
           <a href="<?php echo home_url(); ?>" class="bh-nf-logo">
             <i class="fas fa-store"></i>
-            <span>Modhu Bazar Shop</span>
+            <span><?php echo esc_html(get_bloginfo('name')); ?></span>
           </a>
           <p><?php echo wp_kses_post(get_theme_mod('footer_about','আপনার বিশ্বস্ত অনলাইন শপিং গন্তব্য। সেরা মানের পণ্য, সেরা দামে পৌঁছে দিচ্ছি।')); ?></p>
           <div class="bh-nf-social">
@@ -79,15 +79,15 @@
             <?php endif; ?>
             <div class="bh-nf-contact-item">
               <i class="fas fa-envelope"></i>
-              <span>support@modhubazarshop.com</span>
+              <span><?php echo esc_html(get_theme_mod('contact_email','support@modhubazarshop.com')); ?></span>
             </div>
             <div class="bh-nf-contact-item">
               <i class="fas fa-map-marker-alt"></i>
-              <span>Dhaka, Bangladesh</span>
+              <span><?php echo esc_html(get_theme_mod('contact_address','Dhaka, Bangladesh')); ?></span>
             </div>
             <div class="bh-nf-contact-item">
               <i class="fas fa-clock"></i>
-              <span><?php _e('Sat–Thu: 9AM – 9PM','bazaarhub'); ?></span>
+              <span><?php echo esc_html(get_theme_mod('contact_hours','Sat–Thu: 9AM – 9PM')); ?></span>
             </div>
           </div>
         </div>
@@ -100,11 +100,16 @@
             <input type="email" placeholder="<?php esc_attr_e('Enter your email','bazaarhub'); ?>">
             <button type="submit"><i class="fas fa-paper-plane"></i> <?php _e('Subscribe','bazaarhub'); ?></button>
           </form>
+          <?php
+          $play_url  = get_theme_mod('app_play_url','');
+          $store_url = get_theme_mod('app_store_url','');
+          if ($play_url || $store_url): ?>
           <div class="bh-nf-app">
             <span><?php _e('Download App:','bazaarhub'); ?></span>
-            <a href="#" class="bh-nf-app-btn"><i class="fab fa-google-play"></i> Google Play</a>
-            <a href="#" class="bh-nf-app-btn"><i class="fab fa-apple"></i> App Store</a>
+            <?php if($play_url): ?><a href="<?php echo esc_url($play_url); ?>" class="bh-nf-app-btn" target="_blank"><i class="fab fa-google-play"></i> Google Play</a><?php endif; ?>
+            <?php if($store_url): ?><a href="<?php echo esc_url($store_url); ?>" class="bh-nf-app-btn" target="_blank"><i class="fab fa-apple"></i> App Store</a><?php endif; ?>
           </div>
+          <?php endif; ?>
         </div>
 
       </div>
