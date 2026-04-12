@@ -3,6 +3,7 @@
 <?php get_template_part('template-parts/home/category-showcase'); ?>
 <?php get_template_part('template-parts/home/offer-banners'); ?>
 <?php get_template_part('template-parts/home/best-deals'); ?>
+<?php get_template_part('template-parts/home/offer-sections'); ?>
 <?php get_template_part('template-parts/home/bestseller'); ?>
 <?php get_template_part('template-parts/home/featured-products'); ?>
 <?php get_template_part('template-parts/home/new-arrivals'); ?>

@@ -726,28 +726,58 @@ jQuery(function($){
   });
 });
 
-/* ── Deals Countdown Timer ── */
+/* ── Universal Countdown Timer ──
+   Handles:
+   - #bh-deals-countdown  (Best Deals section, uses #bh-cd-h/m/s by ID)
+   - .bh-offer-countdown  (Offer sections, uses [data-unit=d/h/m/s] within each element)
+   All elements use data-end="YYYY-MM-DDTHH:MM:SS"
+─────────────────────────────────────── */
 (function(){
-  var el = document.getElementById('bh-deals-countdown');
-  if (!el) return;
-  var endStr = el.getAttribute('data-end');
-  var end = endStr ? new Date(endStr).getTime() : (new Date().setHours(23,59,59,999));
   function pad(n){ return String(n).padStart(2,'0'); }
-  function tick(){
-    var now = Date.now(), diff = end - now;
-    if (diff <= 0) { diff = 0; }
-    var h = Math.floor(diff / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    var s = Math.floor((diff % 60000) / 1000);
-    var hEl = document.getElementById('bh-cd-h');
-    var mEl = document.getElementById('bh-cd-m');
-    var sEl = document.getElementById('bh-cd-s');
-    if (hEl) hEl.textContent = pad(h);
-    if (mEl) mEl.textContent = pad(m);
-    if (sEl) sEl.textContent = pad(s);
+
+  function initCountdown(el) {
+    var endStr = el.getAttribute('data-end');
+    var end = endStr ? new Date(endStr).getTime() : (new Date().setHours(23,59,59,999));
+
+    function tick() {
+      var diff = Math.max(0, end - Date.now());
+      var d = Math.floor(diff / 86400000);
+      var h = Math.floor((diff % 86400000) / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+
+      // Offer section countdowns: use [data-unit] spans inside the element
+      var dEl = el.querySelector('[data-unit="d"]');
+      var hEl = el.querySelector('[data-unit="h"]');
+      var mEl = el.querySelector('[data-unit="m"]');
+      var sEl = el.querySelector('[data-unit="s"]');
+      if (dEl) dEl.textContent = pad(d);
+      if (hEl) hEl.textContent = pad(h);
+      if (mEl) mEl.textContent = pad(m);
+      if (sEl) sEl.textContent = pad(s);
+
+      // Best Deals legacy countdown: uses IDs bh-cd-h/m/s
+      if (el.id === 'bh-deals-countdown') {
+        var legacyH = document.getElementById('bh-cd-h');
+        var legacyM = document.getElementById('bh-cd-m');
+        var legacyS = document.getElementById('bh-cd-s');
+        if (legacyH) legacyH.textContent = pad(h);
+        if (legacyM) legacyM.textContent = pad(m);
+        if (legacyS) legacyS.textContent = pad(s);
+      }
+    }
+    tick();
+    setInterval(tick, 1000);
   }
-  tick();
-  setInterval(tick, 1000);
+
+  // Init Best Deals countdown
+  var dealsEl = document.getElementById('bh-deals-countdown');
+  if (dealsEl) initCountdown(dealsEl);
+
+  // Init all offer section countdowns
+  document.querySelectorAll('.bh-offer-countdown').forEach(function(el) {
+    initCountdown(el);
+  });
 })();
 
 /* ── Today's Picks — Show All ── */

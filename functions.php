@@ -112,6 +112,7 @@ require_once BAZAARHUB_DIR . '/inc/ajax-handlers.php';
 require_once BAZAARHUB_DIR . '/inc/compare.php';
 require_once BAZAARHUB_DIR . '/inc/helpers.php';
 require_once BAZAARHUB_DIR . '/inc/product-sections.php';
+require_once BAZAARHUB_DIR . '/inc/offers.php';
 require_once BAZAARHUB_DIR . '/inc/theme-setup.php';
 
 function bazaarhub_flush_on_activate() {
