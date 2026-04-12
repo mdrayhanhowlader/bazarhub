@@ -29,6 +29,9 @@
           </div>
         </div>
 
+        <!-- Cols 2+3: Quick Links & Info — wrapped for mobile 2-col grid -->
+        <div class="bh-nf-cols-row">
+
         <!-- Col 2: Quick Links -->
         <div class="bh-nf-col">
           <h5><?php _e('Quick Links','bazaarhub'); ?></h5>
@@ -67,8 +70,10 @@
           <?php endif; ?>
         </div>
 
+        </div><!-- /.bh-nf-cols-row -->
+
         <!-- Col 4: Contact -->
-        <div class="bh-nf-col">
+        <div class="bh-nf-col bh-nf-contact-col">
           <h5><?php _e('Contact Us','bazaarhub'); ?></h5>
           <div class="bh-nf-contact">
             <?php if(get_theme_mod('top_bar_phone')): ?>

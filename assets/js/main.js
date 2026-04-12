@@ -787,3 +787,42 @@ jQuery(function($){
     $(this).closest('.bh-featured__showall-wrap').fadeOut(200);
   });
 });
+
+/* ── Footer Mobile Accordion ──
+   On mobile (≤600px): click column heading to expand/collapse links.
+   Only applies to .bh-nf-cols-row columns (Quick Links & Info).
+   Contact and Newsletter columns are always open.
+─────────────────────────────── */
+(function(){
+  function initFooterAccordion() {
+    if (window.innerWidth > 600) return;
+
+    var cols = document.querySelectorAll('.bh-nf-cols-row .bh-nf-col');
+    cols.forEach(function(col) {
+      var heading = col.querySelector('h5, .widget-title');
+      if (!heading) return;
+
+      // Remove any old listener by cloning
+      var newHeading = heading.cloneNode(true);
+      heading.parentNode.replaceChild(newHeading, heading);
+
+      newHeading.addEventListener('click', function() {
+        var isOpen = col.classList.contains('bh-col-open');
+        // Close all
+        cols.forEach(function(c) { c.classList.remove('bh-col-open'); });
+        // Open this one if it was closed
+        if (!isOpen) col.classList.add('bh-col-open');
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initFooterAccordion);
+  window.addEventListener('resize', function() {
+    // On resize back to desktop: remove all open classes and inline styles
+    if (window.innerWidth > 600) {
+      document.querySelectorAll('.bh-nf-col').forEach(function(c) {
+        c.classList.remove('bh-col-open');
+      });
+    }
+  });
+})();
