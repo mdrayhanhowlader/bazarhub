@@ -180,7 +180,9 @@ function bazaarhub_customizer_extra($wp_customize) {
     $wp_customize->add_section('bh_popup',['title'=>'Newsletter Popup','priority'=>42]);
     $wp_customize->add_setting('popup_enable',   ['default'=>'1',                             'sanitize_callback'=>'absint']);
     $wp_customize->add_setting('popup_delay',    ['default'=>'3',                             'sanitize_callback'=>'absint']);
-    $wp_customize->add_setting('popup_image',    ['default'=>'',                              'sanitize_callback'=>'esc_url_raw']);
+    $wp_customize->add_setting('popup_image',            ['default'=>'',              'sanitize_callback'=>'esc_url_raw']);
+    $wp_customize->add_setting('popup_placeholder_icon', ['default'=>'fas fa-leaf',   'sanitize_callback'=>'sanitize_text_field']);
+    $wp_customize->add_setting('popup_placeholder_text', ['default'=>'Fresh & Organic','sanitize_callback'=>'sanitize_text_field']);
     $wp_customize->add_setting('popup_tag',      ['default'=>'EXCLUSIVE OFFER',               'sanitize_callback'=>'sanitize_text_field']);
     $wp_customize->add_setting('popup_title',    ['default'=>'Want Access to Discounts & Deals?','sanitize_callback'=>'sanitize_text_field']);
     $wp_customize->add_setting('popup_discount', ['default'=>'25% OFF',                       'sanitize_callback'=>'sanitize_text_field']);
@@ -189,7 +191,9 @@ function bazaarhub_customizer_extra($wp_customize) {
     $wp_customize->add_setting('popup_note',     ['default'=>'* Free delivery on first order. No spam, unsubscribe anytime.','sanitize_callback'=>'sanitize_text_field']);
     $wp_customize->add_control('popup_enable',   ['label'=>'Enable Newsletter Popup','section'=>'bh_popup','type'=>'checkbox']);
     $wp_customize->add_control('popup_delay',    ['label'=>'Show After (seconds)','section'=>'bh_popup','type'=>'number','input_attrs'=>['min'=>0,'max'=>30]]);
-    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize,'popup_image',['label'=>'Left Side Image (optional)','section'=>'bh_popup']));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize,'popup_image',['label'=>'Left Side Image (optional)','section'=>'bh_popup','description'=>'If no image is set, the placeholder below is shown.']));
+    $wp_customize->add_control('popup_placeholder_icon', ['label'=>'Placeholder Icon (Font Awesome class)','section'=>'bh_popup','type'=>'text','description'=>'Shown when no image is set. e.g. fas fa-leaf']);
+    $wp_customize->add_control('popup_placeholder_text', ['label'=>'Placeholder Text','section'=>'bh_popup','type'=>'text','description'=>'e.g. Fresh & Organic']);
     $wp_customize->add_control('popup_tag',      ['label'=>'Top Tag Text','section'=>'bh_popup','type'=>'text']);
     $wp_customize->add_control('popup_title',    ['label'=>'Popup Title','section'=>'bh_popup','type'=>'text']);
     $wp_customize->add_control('popup_discount', ['label'=>'Discount Text (e.g. 25% OFF)','section'=>'bh_popup','type'=>'text']);
