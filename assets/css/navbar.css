@@ -83,7 +83,56 @@
   gap: 24px;
   width: 100%;
 }
-.bh-header__logo { flex-shrink: 0; }
+/* ── Logo: fixed height, never breaks header layout ── */
+.bh-header__logo {
+  flex-shrink: 0;
+  max-width: 200px;
+}
+
+/* Custom logo image — always constrained to header height */
+.bh-header__logo .custom-logo-link {
+  display: flex;
+  align-items: center;
+}
+.bh-header__logo .custom-logo-link img.custom-logo {
+  height: 52px;      /* fixed height — never taller than header */
+  width: auto;
+  max-width: 180px;  /* never wider than logo zone */
+  object-fit: contain;
+  display: block;
+}
+
+/* When tagline is shown alongside image logo */
+.bh-logo-with-tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.bh-logo-with-tagline .custom-logo-link img.custom-logo {
+  height: 42px;      /* slightly shorter when tagline takes vertical space */
+  max-width: 150px;
+}
+.bh-logo-tagline {
+  font-size: 10.5px;
+  color: #777;
+  font-weight: 500;
+  letter-spacing: .3px;
+  line-height: 1;
+  padding-left: 2px;
+}
+
+/* Mobile: smaller logo */
+@media(max-width:768px) {
+  .bh-header__logo { max-width: 140px; }
+  .bh-header__logo .custom-logo-link img.custom-logo { height: 38px; max-width: 130px; }
+  .bh-logo-with-tagline .custom-logo-link img.custom-logo { height: 32px; max-width: 110px; }
+  .bh-logo-tagline { font-size: 9.5px; }
+}
+@media(max-width:480px) {
+  .bh-header__logo { max-width: 120px; }
+  .bh-header__logo .custom-logo-link img.custom-logo { height: 34px; max-width: 110px; }
+}
 .bh-logo-text {
   display: flex; align-items: center; gap: 8px;
   font-family: Poppins,sans-serif; font-size: 22px;

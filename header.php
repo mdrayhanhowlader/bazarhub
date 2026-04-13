@@ -49,11 +49,22 @@
   <div class="bh-container bh-header__inner">
 
     <div class="bh-header__logo">
-      <?php if(has_custom_logo()): the_custom_logo();
+      <?php
+      $tagline = get_theme_mod('header_tagline','');
+      if(has_custom_logo()):
+        if($tagline):
+      ?>
+        <div class="bh-logo-with-tagline">
+          <?php the_custom_logo(); ?>
+          <span class="bh-logo-tagline"><?php echo esc_html($tagline); ?></span>
+        </div>
+      <?php else: the_custom_logo();
+        endif;
       else: ?>
         <a href="<?php echo esc_url(home_url('/')); ?>" class="bh-logo-text">
           <i class="fas fa-store"></i>
           <span><?php echo esc_html(get_bloginfo('name')); ?></span>
+          <?php if($tagline): ?><span class="bh-header__tagline"><?php echo esc_html($tagline); ?></span><?php endif; ?>
         </a>
       <?php endif; ?>
     </div>
